@@ -1,0 +1,296 @@
+<div>
+  <h2 id="page-heading" data-cy="FieldTestEntityHeading">
+    <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestEntity.home.title">Field Test Entities</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info mr-2" (click)="loadAll()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestEntity.home.refreshListLabel">Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-field-test-entity"
+        [routerLink]="['/field-test-entity/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestEntity.home.createLabel"> Create a new Field Test Entity </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="fieldTestEntities?.length === 0">
+    <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestEntity.home.notFound">No fieldTestEntities found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="fieldTestEntities && fieldTestEntities.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr>
+          <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
+          <th scope="col"><span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestEntity.stringTom">String Tom</span></th>
+          <th scope="col"><span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestEntity.stringRequiredTom">String Required Tom</span></th>
+          <th scope="col"><span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestEntity.stringMinlengthTom">String Minlength Tom</span></th>
+          <th scope="col"><span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestEntity.stringMaxlengthTom">String Maxlength Tom</span></th>
+          <th scope="col"><span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestEntity.stringPatternTom">String Pattern Tom</span></th>
+          <th scope="col"><span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestEntity.numberPatternTom">Number Pattern Tom</span></th>
+          <th scope="col">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestEntity.numberPatternRequiredTom">Number Pattern Required Tom</span>
+          </th>
+          <th scope="col"><span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestEntity.integerTom">Integer Tom</span></th>
+          <th scope="col"><span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestEntity.integerRequiredTom">Integer Required Tom</span></th>
+          <th scope="col"><span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestEntity.integerMinTom">Integer Min Tom</span></th>
+          <th scope="col"><span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestEntity.integerMaxTom">Integer Max Tom</span></th>
+          <th scope="col"><span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestEntity.longTom">Long Tom</span></th>
+          <th scope="col"><span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestEntity.longRequiredTom">Long Required Tom</span></th>
+          <th scope="col"><span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestEntity.longMinTom">Long Min Tom</span></th>
+          <th scope="col"><span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestEntity.longMaxTom">Long Max Tom</span></th>
+          <th scope="col"><span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestEntity.floatTom">Float Tom</span></th>
+          <th scope="col"><span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestEntity.floatRequiredTom">Float Required Tom</span></th>
+          <th scope="col"><span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestEntity.floatMinTom">Float Min Tom</span></th>
+          <th scope="col"><span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestEntity.floatMaxTom">Float Max Tom</span></th>
+          <th scope="col"><span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestEntity.doubleRequiredTom">Double Required Tom</span></th>
+          <th scope="col"><span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestEntity.doubleMinTom">Double Min Tom</span></th>
+          <th scope="col"><span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestEntity.doubleMaxTom">Double Max Tom</span></th>
+          <th scope="col">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestEntity.bigDecimalRequiredTom">Big Decimal Required Tom</span>
+          </th>
+          <th scope="col"><span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestEntity.bigDecimalMinTom">Big Decimal Min Tom</span></th>
+          <th scope="col"><span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestEntity.bigDecimalMaxTom">Big Decimal Max Tom</span></th>
+          <th scope="col"><span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestEntity.localDateTom">Local Date Tom</span></th>
+          <th scope="col">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestEntity.localDateRequiredTom">Local Date Required Tom</span>
+          </th>
+          <th scope="col"><span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestEntity.instantTom">Instant Tom</span></th>
+          <th scope="col"><span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestEntity.instantRequiredTom">Instant Required Tom</span></th>
+          <th scope="col"><span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestEntity.zonedDateTimeTom">Zoned Date Time Tom</span></th>
+          <th scope="col">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestEntity.zonedDateTimeRequiredTom">Zoned Date Time Required Tom</span>
+          </th>
+          <th scope="col"><span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestEntity.durationTom">Duration Tom</span></th>
+          <th scope="col">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestEntity.durationRequiredTom">Duration Required Tom</span>
+          </th>
+          <th scope="col"><span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestEntity.booleanTom">Boolean Tom</span></th>
+          <th scope="col"><span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestEntity.booleanRequiredTom">Boolean Required Tom</span></th>
+          <th scope="col"><span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestEntity.enumTom">Enum Tom</span></th>
+          <th scope="col"><span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestEntity.enumRequiredTom">Enum Required Tom</span></th>
+          <th scope="col"><span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestEntity.uuidTom">Uuid Tom</span></th>
+          <th scope="col"><span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestEntity.uuidRequiredTom">Uuid Required Tom</span></th>
+          <th scope="col"><span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestEntity.byteImageTom">Byte Image Tom</span></th>
+          <th scope="col">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestEntity.byteImageRequiredTom">Byte Image Required Tom</span>
+          </th>
+          <th scope="col">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestEntity.byteImageMinbytesTom">Byte Image Minbytes Tom</span>
+          </th>
+          <th scope="col">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestEntity.byteImageMaxbytesTom">Byte Image Maxbytes Tom</span>
+          </th>
+          <th scope="col"><span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestEntity.byteAnyTom">Byte Any Tom</span></th>
+          <th scope="col">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestEntity.byteAnyRequiredTom">Byte Any Required Tom</span>
+          </th>
+          <th scope="col">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestEntity.byteAnyMinbytesTom">Byte Any Minbytes Tom</span>
+          </th>
+          <th scope="col">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestEntity.byteAnyMaxbytesTom">Byte Any Maxbytes Tom</span>
+          </th>
+          <th scope="col"><span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestEntity.byteTextTom">Byte Text Tom</span></th>
+          <th scope="col">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestEntity.byteTextRequiredTom">Byte Text Required Tom</span>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let fieldTestEntity of fieldTestEntities; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/field-test-entity', fieldTestEntity.id, 'view']">{{ fieldTestEntity.id }}</a>
+          </td>
+          <td>{{ fieldTestEntity.stringTom }}</td>
+          <td>{{ fieldTestEntity.stringRequiredTom }}</td>
+          <td>{{ fieldTestEntity.stringMinlengthTom }}</td>
+          <td>{{ fieldTestEntity.stringMaxlengthTom }}</td>
+          <td>{{ fieldTestEntity.stringPatternTom }}</td>
+          <td>{{ fieldTestEntity.numberPatternTom }}</td>
+          <td>{{ fieldTestEntity.numberPatternRequiredTom }}</td>
+          <td>{{ fieldTestEntity.integerTom }}</td>
+          <td>{{ fieldTestEntity.integerRequiredTom }}</td>
+          <td>{{ fieldTestEntity.integerMinTom }}</td>
+          <td>{{ fieldTestEntity.integerMaxTom }}</td>
+          <td>{{ fieldTestEntity.longTom }}</td>
+          <td>{{ fieldTestEntity.longRequiredTom }}</td>
+          <td>{{ fieldTestEntity.longMinTom }}</td>
+          <td>{{ fieldTestEntity.longMaxTom }}</td>
+          <td>{{ fieldTestEntity.floatTom }}</td>
+          <td>{{ fieldTestEntity.floatRequiredTom }}</td>
+          <td>{{ fieldTestEntity.floatMinTom }}</td>
+          <td>{{ fieldTestEntity.floatMaxTom }}</td>
+          <td>{{ fieldTestEntity.doubleRequiredTom }}</td>
+          <td>{{ fieldTestEntity.doubleMinTom }}</td>
+          <td>{{ fieldTestEntity.doubleMaxTom }}</td>
+          <td>{{ fieldTestEntity.bigDecimalRequiredTom }}</td>
+          <td>{{ fieldTestEntity.bigDecimalMinTom }}</td>
+          <td>{{ fieldTestEntity.bigDecimalMaxTom }}</td>
+          <td>{{ fieldTestEntity.localDateTom | formatMediumDate }}</td>
+          <td>{{ fieldTestEntity.localDateRequiredTom | formatMediumDate }}</td>
+          <td>{{ fieldTestEntity.instantTom | formatMediumDatetime }}</td>
+          <td>{{ fieldTestEntity.instantRequiredTom | formatMediumDatetime }}</td>
+          <td>{{ fieldTestEntity.zonedDateTimeTom | formatMediumDatetime }}</td>
+          <td>{{ fieldTestEntity.zonedDateTimeRequiredTom | formatMediumDatetime }}</td>
+          <td title="{{ fieldTestEntity.durationTom }}">{{ fieldTestEntity.durationTom | duration }}</td>
+          <td title="{{ fieldTestEntity.durationRequiredTom }}">{{ fieldTestEntity.durationRequiredTom | duration }}</td>
+          <td>{{ fieldTestEntity.booleanTom }}</td>
+          <td>{{ fieldTestEntity.booleanRequiredTom }}</td>
+          <td jhiTranslate="{{ 'sampleCouchbaseNoCacheApp.EnumFieldClass.' + fieldTestEntity.enumTom }}">{{ fieldTestEntity.enumTom }}</td>
+          <td jhiTranslate="{{ 'sampleCouchbaseNoCacheApp.EnumRequiredFieldClass.' + fieldTestEntity.enumRequiredTom }}">
+            {{ fieldTestEntity.enumRequiredTom }}
+          </td>
+          <td>{{ fieldTestEntity.uuidTom }}</td>
+          <td>{{ fieldTestEntity.uuidRequiredTom }}</td>
+          <td>
+            <a
+              *ngIf="fieldTestEntity.byteImageTom"
+              (click)="openFile(fieldTestEntity.byteImageTom, fieldTestEntity.byteImageTomContentType)"
+            >
+              <img
+                [src]="'data:' + fieldTestEntity.byteImageTomContentType + ';base64,' + fieldTestEntity.byteImageTom"
+                style="max-height: 30px"
+                alt="fieldTestEntity image"
+              />
+            </a>
+            <span *ngIf="fieldTestEntity.byteImageTom"
+              >{{ fieldTestEntity.byteImageTomContentType }}, {{ byteSize(fieldTestEntity.byteImageTom) }}</span
+            >
+          </td>
+          <td>
+            <a
+              *ngIf="fieldTestEntity.byteImageRequiredTom"
+              (click)="openFile(fieldTestEntity.byteImageRequiredTom, fieldTestEntity.byteImageRequiredTomContentType)"
+            >
+              <img
+                [src]="'data:' + fieldTestEntity.byteImageRequiredTomContentType + ';base64,' + fieldTestEntity.byteImageRequiredTom"
+                style="max-height: 30px"
+                alt="fieldTestEntity image"
+              />
+            </a>
+            <span *ngIf="fieldTestEntity.byteImageRequiredTom"
+              >{{ fieldTestEntity.byteImageRequiredTomContentType }}, {{ byteSize(fieldTestEntity.byteImageRequiredTom) }}</span
+            >
+          </td>
+          <td>
+            <a
+              *ngIf="fieldTestEntity.byteImageMinbytesTom"
+              (click)="openFile(fieldTestEntity.byteImageMinbytesTom, fieldTestEntity.byteImageMinbytesTomContentType)"
+            >
+              <img
+                [src]="'data:' + fieldTestEntity.byteImageMinbytesTomContentType + ';base64,' + fieldTestEntity.byteImageMinbytesTom"
+                style="max-height: 30px"
+                alt="fieldTestEntity image"
+              />
+            </a>
+            <span *ngIf="fieldTestEntity.byteImageMinbytesTom"
+              >{{ fieldTestEntity.byteImageMinbytesTomContentType }}, {{ byteSize(fieldTestEntity.byteImageMinbytesTom) }}</span
+            >
+          </td>
+          <td>
+            <a
+              *ngIf="fieldTestEntity.byteImageMaxbytesTom"
+              (click)="openFile(fieldTestEntity.byteImageMaxbytesTom, fieldTestEntity.byteImageMaxbytesTomContentType)"
+            >
+              <img
+                [src]="'data:' + fieldTestEntity.byteImageMaxbytesTomContentType + ';base64,' + fieldTestEntity.byteImageMaxbytesTom"
+                style="max-height: 30px"
+                alt="fieldTestEntity image"
+              />
+            </a>
+            <span *ngIf="fieldTestEntity.byteImageMaxbytesTom"
+              >{{ fieldTestEntity.byteImageMaxbytesTomContentType }}, {{ byteSize(fieldTestEntity.byteImageMaxbytesTom) }}</span
+            >
+          </td>
+          <td>
+            <a
+              *ngIf="fieldTestEntity.byteAnyTom"
+              (click)="openFile(fieldTestEntity.byteAnyTom, fieldTestEntity.byteAnyTomContentType)"
+              jhiTranslate="entity.action.open"
+              >open</a
+            >
+            <span *ngIf="fieldTestEntity.byteAnyTom"
+              >{{ fieldTestEntity.byteAnyTomContentType }}, {{ byteSize(fieldTestEntity.byteAnyTom) }}</span
+            >
+          </td>
+          <td>
+            <a
+              *ngIf="fieldTestEntity.byteAnyRequiredTom"
+              (click)="openFile(fieldTestEntity.byteAnyRequiredTom, fieldTestEntity.byteAnyRequiredTomContentType)"
+              jhiTranslate="entity.action.open"
+              >open</a
+            >
+            <span *ngIf="fieldTestEntity.byteAnyRequiredTom"
+              >{{ fieldTestEntity.byteAnyRequiredTomContentType }}, {{ byteSize(fieldTestEntity.byteAnyRequiredTom) }}</span
+            >
+          </td>
+          <td>
+            <a
+              *ngIf="fieldTestEntity.byteAnyMinbytesTom"
+              (click)="openFile(fieldTestEntity.byteAnyMinbytesTom, fieldTestEntity.byteAnyMinbytesTomContentType)"
+              jhiTranslate="entity.action.open"
+              >open</a
+            >
+            <span *ngIf="fieldTestEntity.byteAnyMinbytesTom"
+              >{{ fieldTestEntity.byteAnyMinbytesTomContentType }}, {{ byteSize(fieldTestEntity.byteAnyMinbytesTom) }}</span
+            >
+          </td>
+          <td>
+            <a
+              *ngIf="fieldTestEntity.byteAnyMaxbytesTom"
+              (click)="openFile(fieldTestEntity.byteAnyMaxbytesTom, fieldTestEntity.byteAnyMaxbytesTomContentType)"
+              jhiTranslate="entity.action.open"
+              >open</a
+            >
+            <span *ngIf="fieldTestEntity.byteAnyMaxbytesTom"
+              >{{ fieldTestEntity.byteAnyMaxbytesTomContentType }}, {{ byteSize(fieldTestEntity.byteAnyMaxbytesTom) }}</span
+            >
+          </td>
+          <td>{{ fieldTestEntity.byteTextTom }}</td>
+          <td>{{ fieldTestEntity.byteTextRequiredTom }}</td>
+          <td class="text-right">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/field-test-entity', fieldTestEntity.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/field-test-entity', fieldTestEntity.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(fieldTestEntity)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

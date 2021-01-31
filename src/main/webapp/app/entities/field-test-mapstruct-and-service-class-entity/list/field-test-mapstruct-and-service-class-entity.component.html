@@ -1,0 +1,503 @@
+<div>
+  <h2 id="page-heading" data-cy="FieldTestMapstructAndServiceClassEntityHeading">
+    <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestMapstructAndServiceClassEntity.home.title"
+      >Field Test Mapstruct And Service Class Entities</span
+    >
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info mr-2" (click)="loadAll()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestMapstructAndServiceClassEntity.home.refreshListLabel">Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-field-test-mapstruct-and-service-class-entity"
+        [routerLink]="['/field-test-mapstruct-and-service-class-entity/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestMapstructAndServiceClassEntity.home.createLabel">
+          Create a new Field Test Mapstruct And Service Class Entity
+        </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="fieldTestMapstructAndServiceClassEntities?.length === 0">
+    <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestMapstructAndServiceClassEntity.home.notFound"
+      >No fieldTestMapstructAndServiceClassEntities found</span
+    >
+  </div>
+
+  <div
+    class="table-responsive"
+    id="entities"
+    *ngIf="fieldTestMapstructAndServiceClassEntities && fieldTestMapstructAndServiceClassEntities.length > 0"
+  >
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr>
+          <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
+          <th scope="col">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestMapstructAndServiceClassEntity.stringEva">String Eva</span>
+          </th>
+          <th scope="col">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestMapstructAndServiceClassEntity.stringRequiredEva"
+              >String Required Eva</span
+            >
+          </th>
+          <th scope="col">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestMapstructAndServiceClassEntity.stringMinlengthEva"
+              >String Minlength Eva</span
+            >
+          </th>
+          <th scope="col">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestMapstructAndServiceClassEntity.stringMaxlengthEva"
+              >String Maxlength Eva</span
+            >
+          </th>
+          <th scope="col">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestMapstructAndServiceClassEntity.stringPatternEva"
+              >String Pattern Eva</span
+            >
+          </th>
+          <th scope="col">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestMapstructAndServiceClassEntity.integerEva">Integer Eva</span>
+          </th>
+          <th scope="col">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestMapstructAndServiceClassEntity.integerRequiredEva"
+              >Integer Required Eva</span
+            >
+          </th>
+          <th scope="col">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestMapstructAndServiceClassEntity.integerMinEva">Integer Min Eva</span>
+          </th>
+          <th scope="col">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestMapstructAndServiceClassEntity.integerMaxEva">Integer Max Eva</span>
+          </th>
+          <th scope="col">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestMapstructAndServiceClassEntity.longEva">Long Eva</span>
+          </th>
+          <th scope="col">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestMapstructAndServiceClassEntity.longRequiredEva">Long Required Eva</span>
+          </th>
+          <th scope="col">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestMapstructAndServiceClassEntity.longMinEva">Long Min Eva</span>
+          </th>
+          <th scope="col">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestMapstructAndServiceClassEntity.longMaxEva">Long Max Eva</span>
+          </th>
+          <th scope="col">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestMapstructAndServiceClassEntity.floatEva">Float Eva</span>
+          </th>
+          <th scope="col">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestMapstructAndServiceClassEntity.floatRequiredEva"
+              >Float Required Eva</span
+            >
+          </th>
+          <th scope="col">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestMapstructAndServiceClassEntity.floatMinEva">Float Min Eva</span>
+          </th>
+          <th scope="col">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestMapstructAndServiceClassEntity.floatMaxEva">Float Max Eva</span>
+          </th>
+          <th scope="col">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestMapstructAndServiceClassEntity.doubleRequiredEva"
+              >Double Required Eva</span
+            >
+          </th>
+          <th scope="col">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestMapstructAndServiceClassEntity.doubleMinEva">Double Min Eva</span>
+          </th>
+          <th scope="col">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestMapstructAndServiceClassEntity.doubleMaxEva">Double Max Eva</span>
+          </th>
+          <th scope="col">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestMapstructAndServiceClassEntity.bigDecimalRequiredEva"
+              >Big Decimal Required Eva</span
+            >
+          </th>
+          <th scope="col">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestMapstructAndServiceClassEntity.bigDecimalMinEva"
+              >Big Decimal Min Eva</span
+            >
+          </th>
+          <th scope="col">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestMapstructAndServiceClassEntity.bigDecimalMaxEva"
+              >Big Decimal Max Eva</span
+            >
+          </th>
+          <th scope="col">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestMapstructAndServiceClassEntity.localDateEva">Local Date Eva</span>
+          </th>
+          <th scope="col">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestMapstructAndServiceClassEntity.localDateRequiredEva"
+              >Local Date Required Eva</span
+            >
+          </th>
+          <th scope="col">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestMapstructAndServiceClassEntity.instantEva">Instant Eva</span>
+          </th>
+          <th scope="col">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestMapstructAndServiceClassEntity.instanteRequiredEva"
+              >Instante Required Eva</span
+            >
+          </th>
+          <th scope="col">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestMapstructAndServiceClassEntity.zonedDateTimeEva"
+              >Zoned Date Time Eva</span
+            >
+          </th>
+          <th scope="col">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestMapstructAndServiceClassEntity.zonedDateTimeRequiredEva"
+              >Zoned Date Time Required Eva</span
+            >
+          </th>
+          <th scope="col">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestMapstructAndServiceClassEntity.durationEva">Duration Eva</span>
+          </th>
+          <th scope="col">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestMapstructAndServiceClassEntity.durationRequiredEva"
+              >Duration Required Eva</span
+            >
+          </th>
+          <th scope="col">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestMapstructAndServiceClassEntity.booleanEva">Boolean Eva</span>
+          </th>
+          <th scope="col">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestMapstructAndServiceClassEntity.booleanRequiredEva"
+              >Boolean Required Eva</span
+            >
+          </th>
+          <th scope="col">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestMapstructAndServiceClassEntity.enumEva">Enum Eva</span>
+          </th>
+          <th scope="col">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestMapstructAndServiceClassEntity.enumRequiredEva">Enum Required Eva</span>
+          </th>
+          <th scope="col">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestMapstructAndServiceClassEntity.uuidEva">Uuid Eva</span>
+          </th>
+          <th scope="col">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestMapstructAndServiceClassEntity.uuidRequiredEva">Uuid Required Eva</span>
+          </th>
+          <th scope="col">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestMapstructAndServiceClassEntity.byteImageEva">Byte Image Eva</span>
+          </th>
+          <th scope="col">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestMapstructAndServiceClassEntity.byteImageRequiredEva"
+              >Byte Image Required Eva</span
+            >
+          </th>
+          <th scope="col">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestMapstructAndServiceClassEntity.byteImageMinbytesEva"
+              >Byte Image Minbytes Eva</span
+            >
+          </th>
+          <th scope="col">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestMapstructAndServiceClassEntity.byteImageMaxbytesEva"
+              >Byte Image Maxbytes Eva</span
+            >
+          </th>
+          <th scope="col">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestMapstructAndServiceClassEntity.byteAnyEva">Byte Any Eva</span>
+          </th>
+          <th scope="col">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestMapstructAndServiceClassEntity.byteAnyRequiredEva"
+              >Byte Any Required Eva</span
+            >
+          </th>
+          <th scope="col">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestMapstructAndServiceClassEntity.byteAnyMinbytesEva"
+              >Byte Any Minbytes Eva</span
+            >
+          </th>
+          <th scope="col">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestMapstructAndServiceClassEntity.byteAnyMaxbytesEva"
+              >Byte Any Maxbytes Eva</span
+            >
+          </th>
+          <th scope="col">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestMapstructAndServiceClassEntity.byteTextEva">Byte Text Eva</span>
+          </th>
+          <th scope="col">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestMapstructAndServiceClassEntity.byteTextRequiredEva"
+              >Byte Text Required Eva</span
+            >
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="let fieldTestMapstructAndServiceClassEntity of fieldTestMapstructAndServiceClassEntities; trackBy: trackId"
+          data-cy="entityTable"
+        >
+          <td>
+            <a [routerLink]="['/field-test-mapstruct-and-service-class-entity', fieldTestMapstructAndServiceClassEntity.id, 'view']">{{
+              fieldTestMapstructAndServiceClassEntity.id
+            }}</a>
+          </td>
+          <td>{{ fieldTestMapstructAndServiceClassEntity.stringEva }}</td>
+          <td>{{ fieldTestMapstructAndServiceClassEntity.stringRequiredEva }}</td>
+          <td>{{ fieldTestMapstructAndServiceClassEntity.stringMinlengthEva }}</td>
+          <td>{{ fieldTestMapstructAndServiceClassEntity.stringMaxlengthEva }}</td>
+          <td>{{ fieldTestMapstructAndServiceClassEntity.stringPatternEva }}</td>
+          <td>{{ fieldTestMapstructAndServiceClassEntity.integerEva }}</td>
+          <td>{{ fieldTestMapstructAndServiceClassEntity.integerRequiredEva }}</td>
+          <td>{{ fieldTestMapstructAndServiceClassEntity.integerMinEva }}</td>
+          <td>{{ fieldTestMapstructAndServiceClassEntity.integerMaxEva }}</td>
+          <td>{{ fieldTestMapstructAndServiceClassEntity.longEva }}</td>
+          <td>{{ fieldTestMapstructAndServiceClassEntity.longRequiredEva }}</td>
+          <td>{{ fieldTestMapstructAndServiceClassEntity.longMinEva }}</td>
+          <td>{{ fieldTestMapstructAndServiceClassEntity.longMaxEva }}</td>
+          <td>{{ fieldTestMapstructAndServiceClassEntity.floatEva }}</td>
+          <td>{{ fieldTestMapstructAndServiceClassEntity.floatRequiredEva }}</td>
+          <td>{{ fieldTestMapstructAndServiceClassEntity.floatMinEva }}</td>
+          <td>{{ fieldTestMapstructAndServiceClassEntity.floatMaxEva }}</td>
+          <td>{{ fieldTestMapstructAndServiceClassEntity.doubleRequiredEva }}</td>
+          <td>{{ fieldTestMapstructAndServiceClassEntity.doubleMinEva }}</td>
+          <td>{{ fieldTestMapstructAndServiceClassEntity.doubleMaxEva }}</td>
+          <td>{{ fieldTestMapstructAndServiceClassEntity.bigDecimalRequiredEva }}</td>
+          <td>{{ fieldTestMapstructAndServiceClassEntity.bigDecimalMinEva }}</td>
+          <td>{{ fieldTestMapstructAndServiceClassEntity.bigDecimalMaxEva }}</td>
+          <td>{{ fieldTestMapstructAndServiceClassEntity.localDateEva | formatMediumDate }}</td>
+          <td>{{ fieldTestMapstructAndServiceClassEntity.localDateRequiredEva | formatMediumDate }}</td>
+          <td>{{ fieldTestMapstructAndServiceClassEntity.instantEva | formatMediumDatetime }}</td>
+          <td>{{ fieldTestMapstructAndServiceClassEntity.instanteRequiredEva | formatMediumDatetime }}</td>
+          <td>{{ fieldTestMapstructAndServiceClassEntity.zonedDateTimeEva | formatMediumDatetime }}</td>
+          <td>{{ fieldTestMapstructAndServiceClassEntity.zonedDateTimeRequiredEva | formatMediumDatetime }}</td>
+          <td title="{{ fieldTestMapstructAndServiceClassEntity.durationEva }}">
+            {{ fieldTestMapstructAndServiceClassEntity.durationEva | duration }}
+          </td>
+          <td title="{{ fieldTestMapstructAndServiceClassEntity.durationRequiredEva }}">
+            {{ fieldTestMapstructAndServiceClassEntity.durationRequiredEva | duration }}
+          </td>
+          <td>{{ fieldTestMapstructAndServiceClassEntity.booleanEva }}</td>
+          <td>{{ fieldTestMapstructAndServiceClassEntity.booleanRequiredEva }}</td>
+          <td jhiTranslate="{{ 'sampleCouchbaseNoCacheApp.EnumFieldClass.' + fieldTestMapstructAndServiceClassEntity.enumEva }}">
+            {{ fieldTestMapstructAndServiceClassEntity.enumEva }}
+          </td>
+          <td
+            jhiTranslate="{{
+              'sampleCouchbaseNoCacheApp.EnumRequiredFieldClass.' + fieldTestMapstructAndServiceClassEntity.enumRequiredEva
+            }}"
+          >
+            {{ fieldTestMapstructAndServiceClassEntity.enumRequiredEva }}
+          </td>
+          <td>{{ fieldTestMapstructAndServiceClassEntity.uuidEva }}</td>
+          <td>{{ fieldTestMapstructAndServiceClassEntity.uuidRequiredEva }}</td>
+          <td>
+            <a
+              *ngIf="fieldTestMapstructAndServiceClassEntity.byteImageEva"
+              (click)="
+                openFile(
+                  fieldTestMapstructAndServiceClassEntity.byteImageEva,
+                  fieldTestMapstructAndServiceClassEntity.byteImageEvaContentType
+                )
+              "
+            >
+              <img
+                [src]="
+                  'data:' +
+                  fieldTestMapstructAndServiceClassEntity.byteImageEvaContentType +
+                  ';base64,' +
+                  fieldTestMapstructAndServiceClassEntity.byteImageEva
+                "
+                style="max-height: 30px"
+                alt="fieldTestMapstructAndServiceClassEntity image"
+              />
+            </a>
+            <span *ngIf="fieldTestMapstructAndServiceClassEntity.byteImageEva"
+              >{{ fieldTestMapstructAndServiceClassEntity.byteImageEvaContentType }},
+              {{ byteSize(fieldTestMapstructAndServiceClassEntity.byteImageEva) }}</span
+            >
+          </td>
+          <td>
+            <a
+              *ngIf="fieldTestMapstructAndServiceClassEntity.byteImageRequiredEva"
+              (click)="
+                openFile(
+                  fieldTestMapstructAndServiceClassEntity.byteImageRequiredEva,
+                  fieldTestMapstructAndServiceClassEntity.byteImageRequiredEvaContentType
+                )
+              "
+            >
+              <img
+                [src]="
+                  'data:' +
+                  fieldTestMapstructAndServiceClassEntity.byteImageRequiredEvaContentType +
+                  ';base64,' +
+                  fieldTestMapstructAndServiceClassEntity.byteImageRequiredEva
+                "
+                style="max-height: 30px"
+                alt="fieldTestMapstructAndServiceClassEntity image"
+              />
+            </a>
+            <span *ngIf="fieldTestMapstructAndServiceClassEntity.byteImageRequiredEva"
+              >{{ fieldTestMapstructAndServiceClassEntity.byteImageRequiredEvaContentType }},
+              {{ byteSize(fieldTestMapstructAndServiceClassEntity.byteImageRequiredEva) }}</span
+            >
+          </td>
+          <td>
+            <a
+              *ngIf="fieldTestMapstructAndServiceClassEntity.byteImageMinbytesEva"
+              (click)="
+                openFile(
+                  fieldTestMapstructAndServiceClassEntity.byteImageMinbytesEva,
+                  fieldTestMapstructAndServiceClassEntity.byteImageMinbytesEvaContentType
+                )
+              "
+            >
+              <img
+                [src]="
+                  'data:' +
+                  fieldTestMapstructAndServiceClassEntity.byteImageMinbytesEvaContentType +
+                  ';base64,' +
+                  fieldTestMapstructAndServiceClassEntity.byteImageMinbytesEva
+                "
+                style="max-height: 30px"
+                alt="fieldTestMapstructAndServiceClassEntity image"
+              />
+            </a>
+            <span *ngIf="fieldTestMapstructAndServiceClassEntity.byteImageMinbytesEva"
+              >{{ fieldTestMapstructAndServiceClassEntity.byteImageMinbytesEvaContentType }},
+              {{ byteSize(fieldTestMapstructAndServiceClassEntity.byteImageMinbytesEva) }}</span
+            >
+          </td>
+          <td>
+            <a
+              *ngIf="fieldTestMapstructAndServiceClassEntity.byteImageMaxbytesEva"
+              (click)="
+                openFile(
+                  fieldTestMapstructAndServiceClassEntity.byteImageMaxbytesEva,
+                  fieldTestMapstructAndServiceClassEntity.byteImageMaxbytesEvaContentType
+                )
+              "
+            >
+              <img
+                [src]="
+                  'data:' +
+                  fieldTestMapstructAndServiceClassEntity.byteImageMaxbytesEvaContentType +
+                  ';base64,' +
+                  fieldTestMapstructAndServiceClassEntity.byteImageMaxbytesEva
+                "
+                style="max-height: 30px"
+                alt="fieldTestMapstructAndServiceClassEntity image"
+              />
+            </a>
+            <span *ngIf="fieldTestMapstructAndServiceClassEntity.byteImageMaxbytesEva"
+              >{{ fieldTestMapstructAndServiceClassEntity.byteImageMaxbytesEvaContentType }},
+              {{ byteSize(fieldTestMapstructAndServiceClassEntity.byteImageMaxbytesEva) }}</span
+            >
+          </td>
+          <td>
+            <a
+              *ngIf="fieldTestMapstructAndServiceClassEntity.byteAnyEva"
+              (click)="
+                openFile(fieldTestMapstructAndServiceClassEntity.byteAnyEva, fieldTestMapstructAndServiceClassEntity.byteAnyEvaContentType)
+              "
+              jhiTranslate="entity.action.open"
+              >open</a
+            >
+            <span *ngIf="fieldTestMapstructAndServiceClassEntity.byteAnyEva"
+              >{{ fieldTestMapstructAndServiceClassEntity.byteAnyEvaContentType }},
+              {{ byteSize(fieldTestMapstructAndServiceClassEntity.byteAnyEva) }}</span
+            >
+          </td>
+          <td>
+            <a
+              *ngIf="fieldTestMapstructAndServiceClassEntity.byteAnyRequiredEva"
+              (click)="
+                openFile(
+                  fieldTestMapstructAndServiceClassEntity.byteAnyRequiredEva,
+                  fieldTestMapstructAndServiceClassEntity.byteAnyRequiredEvaContentType
+                )
+              "
+              jhiTranslate="entity.action.open"
+              >open</a
+            >
+            <span *ngIf="fieldTestMapstructAndServiceClassEntity.byteAnyRequiredEva"
+              >{{ fieldTestMapstructAndServiceClassEntity.byteAnyRequiredEvaContentType }},
+              {{ byteSize(fieldTestMapstructAndServiceClassEntity.byteAnyRequiredEva) }}</span
+            >
+          </td>
+          <td>
+            <a
+              *ngIf="fieldTestMapstructAndServiceClassEntity.byteAnyMinbytesEva"
+              (click)="
+                openFile(
+                  fieldTestMapstructAndServiceClassEntity.byteAnyMinbytesEva,
+                  fieldTestMapstructAndServiceClassEntity.byteAnyMinbytesEvaContentType
+                )
+              "
+              jhiTranslate="entity.action.open"
+              >open</a
+            >
+            <span *ngIf="fieldTestMapstructAndServiceClassEntity.byteAnyMinbytesEva"
+              >{{ fieldTestMapstructAndServiceClassEntity.byteAnyMinbytesEvaContentType }},
+              {{ byteSize(fieldTestMapstructAndServiceClassEntity.byteAnyMinbytesEva) }}</span
+            >
+          </td>
+          <td>
+            <a
+              *ngIf="fieldTestMapstructAndServiceClassEntity.byteAnyMaxbytesEva"
+              (click)="
+                openFile(
+                  fieldTestMapstructAndServiceClassEntity.byteAnyMaxbytesEva,
+                  fieldTestMapstructAndServiceClassEntity.byteAnyMaxbytesEvaContentType
+                )
+              "
+              jhiTranslate="entity.action.open"
+              >open</a
+            >
+            <span *ngIf="fieldTestMapstructAndServiceClassEntity.byteAnyMaxbytesEva"
+              >{{ fieldTestMapstructAndServiceClassEntity.byteAnyMaxbytesEvaContentType }},
+              {{ byteSize(fieldTestMapstructAndServiceClassEntity.byteAnyMaxbytesEva) }}</span
+            >
+          </td>
+          <td>{{ fieldTestMapstructAndServiceClassEntity.byteTextEva }}</td>
+          <td>{{ fieldTestMapstructAndServiceClassEntity.byteTextRequiredEva }}</td>
+          <td class="text-right">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/field-test-mapstruct-and-service-class-entity', fieldTestMapstructAndServiceClassEntity.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/field-test-mapstruct-and-service-class-entity', fieldTestMapstructAndServiceClassEntity.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button
+                type="submit"
+                (click)="delete(fieldTestMapstructAndServiceClassEntity)"
+                class="btn btn-danger btn-sm"
+                data-cy="entityDeleteButton"
+              >
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,118 @@
+<div>
+  <h2 id="page-heading" data-cy="DocumentBankAccountHeading">
+    <span jhiTranslate="sampleCouchbaseNoCacheApp.documentBankAccount.home.title">Document Bank Accounts</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info mr-2" (click)="loadAll()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="sampleCouchbaseNoCacheApp.documentBankAccount.home.refreshListLabel">Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-document-bank-account"
+        [routerLink]="['/document-bank-account/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="sampleCouchbaseNoCacheApp.documentBankAccount.home.createLabel"> Create a new Document Bank Account </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="documentBankAccounts?.length === 0">
+    <span jhiTranslate="sampleCouchbaseNoCacheApp.documentBankAccount.home.notFound">No documentBankAccounts found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="documentBankAccounts && documentBankAccounts.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr>
+          <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
+          <th scope="col"><span jhiTranslate="sampleCouchbaseNoCacheApp.documentBankAccount.name">Name</span></th>
+          <th scope="col"><span jhiTranslate="sampleCouchbaseNoCacheApp.documentBankAccount.bankNumber">Bank Number</span></th>
+          <th scope="col"><span jhiTranslate="sampleCouchbaseNoCacheApp.documentBankAccount.agencyNumber">Agency Number</span></th>
+          <th scope="col">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.documentBankAccount.lastOperationDuration">Last Operation Duration</span>
+          </th>
+          <th scope="col">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.documentBankAccount.meanOperationDuration">Mean Operation Duration</span>
+          </th>
+          <th scope="col"><span jhiTranslate="sampleCouchbaseNoCacheApp.documentBankAccount.balance">Balance</span></th>
+          <th scope="col"><span jhiTranslate="sampleCouchbaseNoCacheApp.documentBankAccount.openingDay">Opening Day</span></th>
+          <th scope="col">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.documentBankAccount.lastOperationDate">Last Operation Date</span>
+          </th>
+          <th scope="col"><span jhiTranslate="sampleCouchbaseNoCacheApp.documentBankAccount.active">Active</span></th>
+          <th scope="col"><span jhiTranslate="sampleCouchbaseNoCacheApp.documentBankAccount.accountType">Account Type</span></th>
+          <th scope="col"><span jhiTranslate="sampleCouchbaseNoCacheApp.documentBankAccount.attachment">Attachment</span></th>
+          <th scope="col"><span jhiTranslate="sampleCouchbaseNoCacheApp.documentBankAccount.description">Description</span></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let documentBankAccount of documentBankAccounts; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/document-bank-account', documentBankAccount.id, 'view']">{{ documentBankAccount.id }}</a>
+          </td>
+          <td>{{ documentBankAccount.name }}</td>
+          <td>{{ documentBankAccount.bankNumber }}</td>
+          <td>{{ documentBankAccount.agencyNumber }}</td>
+          <td>{{ documentBankAccount.lastOperationDuration }}</td>
+          <td>{{ documentBankAccount.meanOperationDuration }}</td>
+          <td>{{ documentBankAccount.balance }}</td>
+          <td>{{ documentBankAccount.openingDay | formatMediumDate }}</td>
+          <td>{{ documentBankAccount.lastOperationDate | formatMediumDatetime }}</td>
+          <td>{{ documentBankAccount.active }}</td>
+          <td jhiTranslate="{{ 'sampleCouchbaseNoCacheApp.BankAccountType.' + documentBankAccount.accountType }}">
+            {{ documentBankAccount.accountType }}
+          </td>
+          <td>
+            <a
+              *ngIf="documentBankAccount.attachment"
+              (click)="openFile(documentBankAccount.attachment, documentBankAccount.attachmentContentType)"
+              jhiTranslate="entity.action.open"
+              >open</a
+            >
+            <span *ngIf="documentBankAccount.attachment"
+              >{{ documentBankAccount.attachmentContentType }}, {{ byteSize(documentBankAccount.attachment) }}</span
+            >
+          </td>
+          <td>{{ documentBankAccount.description }}</td>
+          <td class="text-right">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/document-bank-account', documentBankAccount.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/document-bank-account', documentBankAccount.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(documentBankAccount)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

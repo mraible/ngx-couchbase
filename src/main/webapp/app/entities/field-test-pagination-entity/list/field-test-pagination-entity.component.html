@@ -1,0 +1,466 @@
+<div>
+  <h2 id="page-heading" data-cy="FieldTestPaginationEntityHeading">
+    <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestPaginationEntity.home.title">Field Test Pagination Entities</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info mr-2" (click)="loadPage()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestPaginationEntity.home.refreshListLabel">Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-field-test-pagination-entity"
+        [routerLink]="['/field-test-pagination-entity/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestPaginationEntity.home.createLabel">
+          Create a new Field Test Pagination Entity
+        </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="fieldTestPaginationEntities?.length === 0">
+    <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestPaginationEntity.home.notFound">No fieldTestPaginationEntities found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="fieldTestPaginationEntities && fieldTestPaginationEntities.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
+          <th scope="col" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="stringAlice">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestPaginationEntity.stringAlice">String Alice</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="stringRequiredAlice">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestPaginationEntity.stringRequiredAlice">String Required Alice</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="stringMinlengthAlice">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestPaginationEntity.stringMinlengthAlice">String Minlength Alice</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="stringMaxlengthAlice">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestPaginationEntity.stringMaxlengthAlice">String Maxlength Alice</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="stringPatternAlice">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestPaginationEntity.stringPatternAlice">String Pattern Alice</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="integerAlice">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestPaginationEntity.integerAlice">Integer Alice</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="integerRequiredAlice">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestPaginationEntity.integerRequiredAlice">Integer Required Alice</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="integerMinAlice">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestPaginationEntity.integerMinAlice">Integer Min Alice</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="integerMaxAlice">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestPaginationEntity.integerMaxAlice">Integer Max Alice</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="longAlice">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestPaginationEntity.longAlice">Long Alice</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="longRequiredAlice">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestPaginationEntity.longRequiredAlice">Long Required Alice</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="longMinAlice">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestPaginationEntity.longMinAlice">Long Min Alice</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="longMaxAlice">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestPaginationEntity.longMaxAlice">Long Max Alice</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="floatAlice">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestPaginationEntity.floatAlice">Float Alice</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="floatRequiredAlice">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestPaginationEntity.floatRequiredAlice">Float Required Alice</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="floatMinAlice">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestPaginationEntity.floatMinAlice">Float Min Alice</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="floatMaxAlice">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestPaginationEntity.floatMaxAlice">Float Max Alice</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="doubleRequiredAlice">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestPaginationEntity.doubleRequiredAlice">Double Required Alice</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="doubleMinAlice">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestPaginationEntity.doubleMinAlice">Double Min Alice</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="doubleMaxAlice">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestPaginationEntity.doubleMaxAlice">Double Max Alice</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="bigDecimalRequiredAlice">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestPaginationEntity.bigDecimalRequiredAlice"
+              >Big Decimal Required Alice</span
+            >
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="bigDecimalMinAlice">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestPaginationEntity.bigDecimalMinAlice">Big Decimal Min Alice</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="bigDecimalMaxAlice">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestPaginationEntity.bigDecimalMaxAlice">Big Decimal Max Alice</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="localDateAlice">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestPaginationEntity.localDateAlice">Local Date Alice</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="localDateRequiredAlice">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestPaginationEntity.localDateRequiredAlice">Local Date Required Alice</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="instantAlice">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestPaginationEntity.instantAlice">Instant Alice</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="instanteRequiredAlice">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestPaginationEntity.instanteRequiredAlice">Instante Required Alice</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="zonedDateTimeAlice">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestPaginationEntity.zonedDateTimeAlice">Zoned Date Time Alice</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="zonedDateTimeRequiredAlice">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestPaginationEntity.zonedDateTimeRequiredAlice"
+              >Zoned Date Time Required Alice</span
+            >
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="durationAlice">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestPaginationEntity.durationAlice">Duration Alice</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="durationRequiredAlice">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestPaginationEntity.durationRequiredAlice">Duration Required Alice</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="booleanAlice">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestPaginationEntity.booleanAlice">Boolean Alice</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="booleanRequiredAlice">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestPaginationEntity.booleanRequiredAlice">Boolean Required Alice</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="enumAlice">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestPaginationEntity.enumAlice">Enum Alice</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="enumRequiredAlice">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestPaginationEntity.enumRequiredAlice">Enum Required Alice</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="uuidAlice">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestPaginationEntity.uuidAlice">Uuid Alice</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="uuidRequiredAlice">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestPaginationEntity.uuidRequiredAlice">Uuid Required Alice</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="byteImageAlice">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestPaginationEntity.byteImageAlice">Byte Image Alice</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="byteImageRequiredAlice">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestPaginationEntity.byteImageRequiredAlice">Byte Image Required Alice</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="byteImageMinbytesAlice">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestPaginationEntity.byteImageMinbytesAlice">Byte Image Minbytes Alice</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="byteImageMaxbytesAlice">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestPaginationEntity.byteImageMaxbytesAlice">Byte Image Maxbytes Alice</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="byteAnyAlice">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestPaginationEntity.byteAnyAlice">Byte Any Alice</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="byteAnyRequiredAlice">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestPaginationEntity.byteAnyRequiredAlice">Byte Any Required Alice</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="byteAnyMinbytesAlice">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestPaginationEntity.byteAnyMinbytesAlice">Byte Any Minbytes Alice</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="byteAnyMaxbytesAlice">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestPaginationEntity.byteAnyMaxbytesAlice">Byte Any Maxbytes Alice</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="byteTextAlice">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestPaginationEntity.byteTextAlice">Byte Text Alice</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="byteTextRequiredAlice">
+            <span jhiTranslate="sampleCouchbaseNoCacheApp.fieldTestPaginationEntity.byteTextRequiredAlice">Byte Text Required Alice</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let fieldTestPaginationEntity of fieldTestPaginationEntities; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/field-test-pagination-entity', fieldTestPaginationEntity.id, 'view']">{{ fieldTestPaginationEntity.id }}</a>
+          </td>
+          <td>{{ fieldTestPaginationEntity.stringAlice }}</td>
+          <td>{{ fieldTestPaginationEntity.stringRequiredAlice }}</td>
+          <td>{{ fieldTestPaginationEntity.stringMinlengthAlice }}</td>
+          <td>{{ fieldTestPaginationEntity.stringMaxlengthAlice }}</td>
+          <td>{{ fieldTestPaginationEntity.stringPatternAlice }}</td>
+          <td>{{ fieldTestPaginationEntity.integerAlice }}</td>
+          <td>{{ fieldTestPaginationEntity.integerRequiredAlice }}</td>
+          <td>{{ fieldTestPaginationEntity.integerMinAlice }}</td>
+          <td>{{ fieldTestPaginationEntity.integerMaxAlice }}</td>
+          <td>{{ fieldTestPaginationEntity.longAlice }}</td>
+          <td>{{ fieldTestPaginationEntity.longRequiredAlice }}</td>
+          <td>{{ fieldTestPaginationEntity.longMinAlice }}</td>
+          <td>{{ fieldTestPaginationEntity.longMaxAlice }}</td>
+          <td>{{ fieldTestPaginationEntity.floatAlice }}</td>
+          <td>{{ fieldTestPaginationEntity.floatRequiredAlice }}</td>
+          <td>{{ fieldTestPaginationEntity.floatMinAlice }}</td>
+          <td>{{ fieldTestPaginationEntity.floatMaxAlice }}</td>
+          <td>{{ fieldTestPaginationEntity.doubleRequiredAlice }}</td>
+          <td>{{ fieldTestPaginationEntity.doubleMinAlice }}</td>
+          <td>{{ fieldTestPaginationEntity.doubleMaxAlice }}</td>
+          <td>{{ fieldTestPaginationEntity.bigDecimalRequiredAlice }}</td>
+          <td>{{ fieldTestPaginationEntity.bigDecimalMinAlice }}</td>
+          <td>{{ fieldTestPaginationEntity.bigDecimalMaxAlice }}</td>
+          <td>{{ fieldTestPaginationEntity.localDateAlice | formatMediumDate }}</td>
+          <td>{{ fieldTestPaginationEntity.localDateRequiredAlice | formatMediumDate }}</td>
+          <td>{{ fieldTestPaginationEntity.instantAlice | formatMediumDatetime }}</td>
+          <td>{{ fieldTestPaginationEntity.instanteRequiredAlice | formatMediumDatetime }}</td>
+          <td>{{ fieldTestPaginationEntity.zonedDateTimeAlice | formatMediumDatetime }}</td>
+          <td>{{ fieldTestPaginationEntity.zonedDateTimeRequiredAlice | formatMediumDatetime }}</td>
+          <td title="{{ fieldTestPaginationEntity.durationAlice }}">{{ fieldTestPaginationEntity.durationAlice | duration }}</td>
+          <td title="{{ fieldTestPaginationEntity.durationRequiredAlice }}">
+            {{ fieldTestPaginationEntity.durationRequiredAlice | duration }}
+          </td>
+          <td>{{ fieldTestPaginationEntity.booleanAlice }}</td>
+          <td>{{ fieldTestPaginationEntity.booleanRequiredAlice }}</td>
+          <td jhiTranslate="{{ 'sampleCouchbaseNoCacheApp.EnumFieldClass.' + fieldTestPaginationEntity.enumAlice }}">
+            {{ fieldTestPaginationEntity.enumAlice }}
+          </td>
+          <td jhiTranslate="{{ 'sampleCouchbaseNoCacheApp.EnumRequiredFieldClass.' + fieldTestPaginationEntity.enumRequiredAlice }}">
+            {{ fieldTestPaginationEntity.enumRequiredAlice }}
+          </td>
+          <td>{{ fieldTestPaginationEntity.uuidAlice }}</td>
+          <td>{{ fieldTestPaginationEntity.uuidRequiredAlice }}</td>
+          <td>
+            <a
+              *ngIf="fieldTestPaginationEntity.byteImageAlice"
+              (click)="openFile(fieldTestPaginationEntity.byteImageAlice, fieldTestPaginationEntity.byteImageAliceContentType)"
+            >
+              <img
+                [src]="
+                  'data:' + fieldTestPaginationEntity.byteImageAliceContentType + ';base64,' + fieldTestPaginationEntity.byteImageAlice
+                "
+                style="max-height: 30px"
+                alt="fieldTestPaginationEntity image"
+              />
+            </a>
+            <span *ngIf="fieldTestPaginationEntity.byteImageAlice"
+              >{{ fieldTestPaginationEntity.byteImageAliceContentType }}, {{ byteSize(fieldTestPaginationEntity.byteImageAlice) }}</span
+            >
+          </td>
+          <td>
+            <a
+              *ngIf="fieldTestPaginationEntity.byteImageRequiredAlice"
+              (click)="
+                openFile(fieldTestPaginationEntity.byteImageRequiredAlice, fieldTestPaginationEntity.byteImageRequiredAliceContentType)
+              "
+            >
+              <img
+                [src]="
+                  'data:' +
+                  fieldTestPaginationEntity.byteImageRequiredAliceContentType +
+                  ';base64,' +
+                  fieldTestPaginationEntity.byteImageRequiredAlice
+                "
+                style="max-height: 30px"
+                alt="fieldTestPaginationEntity image"
+              />
+            </a>
+            <span *ngIf="fieldTestPaginationEntity.byteImageRequiredAlice"
+              >{{ fieldTestPaginationEntity.byteImageRequiredAliceContentType }},
+              {{ byteSize(fieldTestPaginationEntity.byteImageRequiredAlice) }}</span
+            >
+          </td>
+          <td>
+            <a
+              *ngIf="fieldTestPaginationEntity.byteImageMinbytesAlice"
+              (click)="
+                openFile(fieldTestPaginationEntity.byteImageMinbytesAlice, fieldTestPaginationEntity.byteImageMinbytesAliceContentType)
+              "
+            >
+              <img
+                [src]="
+                  'data:' +
+                  fieldTestPaginationEntity.byteImageMinbytesAliceContentType +
+                  ';base64,' +
+                  fieldTestPaginationEntity.byteImageMinbytesAlice
+                "
+                style="max-height: 30px"
+                alt="fieldTestPaginationEntity image"
+              />
+            </a>
+            <span *ngIf="fieldTestPaginationEntity.byteImageMinbytesAlice"
+              >{{ fieldTestPaginationEntity.byteImageMinbytesAliceContentType }},
+              {{ byteSize(fieldTestPaginationEntity.byteImageMinbytesAlice) }}</span
+            >
+          </td>
+          <td>
+            <a
+              *ngIf="fieldTestPaginationEntity.byteImageMaxbytesAlice"
+              (click)="
+                openFile(fieldTestPaginationEntity.byteImageMaxbytesAlice, fieldTestPaginationEntity.byteImageMaxbytesAliceContentType)
+              "
+            >
+              <img
+                [src]="
+                  'data:' +
+                  fieldTestPaginationEntity.byteImageMaxbytesAliceContentType +
+                  ';base64,' +
+                  fieldTestPaginationEntity.byteImageMaxbytesAlice
+                "
+                style="max-height: 30px"
+                alt="fieldTestPaginationEntity image"
+              />
+            </a>
+            <span *ngIf="fieldTestPaginationEntity.byteImageMaxbytesAlice"
+              >{{ fieldTestPaginationEntity.byteImageMaxbytesAliceContentType }},
+              {{ byteSize(fieldTestPaginationEntity.byteImageMaxbytesAlice) }}</span
+            >
+          </td>
+          <td>
+            <a
+              *ngIf="fieldTestPaginationEntity.byteAnyAlice"
+              (click)="openFile(fieldTestPaginationEntity.byteAnyAlice, fieldTestPaginationEntity.byteAnyAliceContentType)"
+              jhiTranslate="entity.action.open"
+              >open</a
+            >
+            <span *ngIf="fieldTestPaginationEntity.byteAnyAlice"
+              >{{ fieldTestPaginationEntity.byteAnyAliceContentType }}, {{ byteSize(fieldTestPaginationEntity.byteAnyAlice) }}</span
+            >
+          </td>
+          <td>
+            <a
+              *ngIf="fieldTestPaginationEntity.byteAnyRequiredAlice"
+              (click)="openFile(fieldTestPaginationEntity.byteAnyRequiredAlice, fieldTestPaginationEntity.byteAnyRequiredAliceContentType)"
+              jhiTranslate="entity.action.open"
+              >open</a
+            >
+            <span *ngIf="fieldTestPaginationEntity.byteAnyRequiredAlice"
+              >{{ fieldTestPaginationEntity.byteAnyRequiredAliceContentType }},
+              {{ byteSize(fieldTestPaginationEntity.byteAnyRequiredAlice) }}</span
+            >
+          </td>
+          <td>
+            <a
+              *ngIf="fieldTestPaginationEntity.byteAnyMinbytesAlice"
+              (click)="openFile(fieldTestPaginationEntity.byteAnyMinbytesAlice, fieldTestPaginationEntity.byteAnyMinbytesAliceContentType)"
+              jhiTranslate="entity.action.open"
+              >open</a
+            >
+            <span *ngIf="fieldTestPaginationEntity.byteAnyMinbytesAlice"
+              >{{ fieldTestPaginationEntity.byteAnyMinbytesAliceContentType }},
+              {{ byteSize(fieldTestPaginationEntity.byteAnyMinbytesAlice) }}</span
+            >
+          </td>
+          <td>
+            <a
+              *ngIf="fieldTestPaginationEntity.byteAnyMaxbytesAlice"
+              (click)="openFile(fieldTestPaginationEntity.byteAnyMaxbytesAlice, fieldTestPaginationEntity.byteAnyMaxbytesAliceContentType)"
+              jhiTranslate="entity.action.open"
+              >open</a
+            >
+            <span *ngIf="fieldTestPaginationEntity.byteAnyMaxbytesAlice"
+              >{{ fieldTestPaginationEntity.byteAnyMaxbytesAliceContentType }},
+              {{ byteSize(fieldTestPaginationEntity.byteAnyMaxbytesAlice) }}</span
+            >
+          </td>
+          <td>{{ fieldTestPaginationEntity.byteTextAlice }}</td>
+          <td>{{ fieldTestPaginationEntity.byteTextRequiredAlice }}</td>
+          <td class="text-right">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/field-test-pagination-entity', fieldTestPaginationEntity.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/field-test-pagination-entity', fieldTestPaginationEntity.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(fieldTestPaginationEntity)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="fieldTestPaginationEntities && fieldTestPaginationEntities.length > 0">
+    <div class="row justify-content-center">
+      <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+    </div>
+
+    <div class="row justify-content-center">
+      <ngb-pagination
+        [collectionSize]="totalItems"
+        [(page)]="ngbPaginationPage"
+        [pageSize]="itemsPerPage"
+        [maxSize]="5"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        (pageChange)="loadPage($event)"
+      ></ngb-pagination>
+    </div>
+  </div>
+</div>
