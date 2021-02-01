@@ -31,10 +31,11 @@ import org.springframework.util.StringUtils;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import tech.jhipster.config.JHipsterConstants;
 import tech.jhipster.config.JHipsterProperties;
+import tech.jhipster.sample.config.springdata.CustomCouchbaseRepositoryFactoryBean;
 
 @Configuration
 @Profile("!" + JHipsterConstants.SPRING_PROFILE_CLOUD)
-@EnableCouchbaseRepositories(basePackages = "tech.jhipster.sample.repository")
+@EnableCouchbaseRepositories(basePackages = "tech.jhipster.sample.repository", repositoryFactoryBeanClass = CustomCouchbaseRepositoryFactoryBean.class)
 @EnableCouchbaseAuditing(auditorAwareRef = "springSecurityAuditorAware", dateTimeProviderRef = "")
 public class DatabaseConfiguration extends AbstractCouchbaseConfiguration {
 
