@@ -1,5 +1,12 @@
 package tech.jhipster.sample.service;
 
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -18,14 +25,6 @@ import tech.jhipster.sample.security.SecurityUtils;
 import tech.jhipster.sample.service.dto.AdminUserDTO;
 import tech.jhipster.sample.service.dto.UserDTO;
 import tech.jhipster.security.RandomUtil;
-
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
  * Service class for managing users.
@@ -267,18 +266,16 @@ public class UserService {
     }
 
     public Page<UserDTO> getAllPublicUsers(Pageable pageable) {
-        // FIXME: 2/1/21 Unfortunately String Based queries doesnt seem to support Pagination parameters. Changed the
+        // FIXME: 2/1/21 Current version of Spring Data doesnt seem to support Pagination parameters. Changed the
         //  method to return a list and added a count query to construct the page.
-        // Page<User> usersPage = userRepository.findAllByIdNotNullAndActivatedIsTrue(pageable);
+        // return userRepository.findAllByIdNotNullAndActivatedIsTrue(pageable).map(UserDTO::new);
 
-        Long count = userRepository.countAllByIdNotNullAndActivatedIsTrue();
+        final Long count = userRepository.countAllByIdNotNullAndActivatedIsTrue();
         if (count == 0) {
             return Page.empty();
         }
-        List<User> users = userRepository.findAllByIdNotNullAndActivatedIsTrue();
-        return new PageImpl<>(users.stream()
-            .map(UserDTO::new)
-            .collect(Collectors.toList()), pageable, count);
+        final List<User> users = userRepository.findAllByIdNotNullAndActivatedIsTrue();
+        return new PageImpl<>(users.stream().map(UserDTO::new).collect(Collectors.toList()), pageable, count);
     }
 
     public Optional<User> getUserWithAuthoritiesByLogin(String login) {

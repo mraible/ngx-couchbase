@@ -1,4 +1,4 @@
-package tech.jhipster.sample.config.springdata;
+package tech.jhipster.sample.config.sdc;
 
 import org.springframework.data.couchbase.repository.config.RepositoryOperationsMapping;
 import org.springframework.data.couchbase.repository.support.CouchbaseRepositoryFactory;
@@ -8,6 +8,7 @@ import org.springframework.data.couchbase.repository.support.CouchbaseRepository
  * Created by mmonti on 2/1/21.
  */
 public class CustomCouchbaseRepositoryFactoryBean extends CouchbaseRepositoryFactoryBean {
+
     /**
      * Creates a new {@link CouchbaseRepositoryFactoryBean} for the given repository interface.
      *

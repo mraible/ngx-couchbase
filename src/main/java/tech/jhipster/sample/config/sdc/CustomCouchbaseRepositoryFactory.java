@@ -1,5 +1,7 @@
-package tech.jhipster.sample.config.springdata;
+package tech.jhipster.sample.config.sdc;
 
+import java.lang.reflect.Method;
+import java.util.Optional;
 import org.springframework.data.couchbase.core.CouchbaseOperations;
 import org.springframework.data.couchbase.repository.config.RepositoryOperationsMapping;
 import org.springframework.data.couchbase.repository.query.CouchbaseQueryMethod;
@@ -11,9 +13,6 @@ import org.springframework.data.repository.core.RepositoryMetadata;
 import org.springframework.data.repository.query.QueryLookupStrategy;
 import org.springframework.data.repository.query.QueryMethodEvaluationContextProvider;
 import org.springframework.data.repository.query.RepositoryQuery;
-
-import java.lang.reflect.Method;
-import java.util.Optional;
 
 /**
  * Created by mmonti on 2/1/21.
@@ -35,7 +34,10 @@ public class CustomCouchbaseRepositoryFactory extends CouchbaseRepositoryFactory
     }
 
     @Override
-    protected Optional<QueryLookupStrategy> getQueryLookupStrategy(QueryLookupStrategy.Key key, QueryMethodEvaluationContextProvider contextProvider) {
+    protected Optional<QueryLookupStrategy> getQueryLookupStrategy(
+        QueryLookupStrategy.Key key,
+        QueryMethodEvaluationContextProvider contextProvider
+    ) {
         return Optional.of(new CustomCouchbaseQueryLookupStrategy(contextProvider));
     }
 
@@ -48,10 +50,16 @@ public class CustomCouchbaseRepositoryFactory extends CouchbaseRepositoryFactory
         }
 
         @Override
-        public RepositoryQuery resolveQuery(final Method method, final RepositoryMetadata metadata,
-                                            final ProjectionFactory factory, final NamedQueries namedQueries) {
+        public RepositoryQuery resolveQuery(
+            final Method method,
+            final RepositoryMetadata metadata,
+            final ProjectionFactory factory,
+            final NamedQueries namedQueries
+        ) {
             final CouchbaseOperations couchbaseOperations = couchbaseOperationsMapping.resolve(
-                metadata.getRepositoryInterface(), metadata.getDomainType());
+                metadata.getRepositoryInterface(),
+                metadata.getDomainType()
+            );
 
             CouchbaseQueryMethod queryMethod = new CouchbaseQueryMethod(method, metadata, factory, mappingContext);
             return new CustomCouchbaseRepositoryQuery(couchbaseOperations, queryMethod, namedQueries);

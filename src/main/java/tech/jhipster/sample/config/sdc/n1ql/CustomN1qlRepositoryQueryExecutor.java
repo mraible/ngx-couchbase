@@ -1,4 +1,4 @@
-package tech.jhipster.sample.config.springdata.n1ql;
+package tech.jhipster.sample.config.sdc.n1ql;
 
 import com.couchbase.client.java.query.QueryScanConsistency;
 import org.springframework.data.couchbase.core.CouchbaseOperations;
@@ -22,7 +22,11 @@ public class CustomN1qlRepositoryQueryExecutor {
     private final CouchbaseQueryMethod queryMethod;
     private final NamedQueries namedQueries;
 
-    public CustomN1qlRepositoryQueryExecutor(final CouchbaseOperations operations, final CouchbaseQueryMethod queryMethod, final NamedQueries namedQueries) {
+    public CustomN1qlRepositoryQueryExecutor(
+        final CouchbaseOperations operations,
+        final CouchbaseQueryMethod queryMethod,
+        final NamedQueries namedQueries
+    ) {
         this.operations = operations;
         this.queryMethod = queryMethod;
         this.namedQueries = namedQueries;
@@ -43,13 +47,25 @@ public class CustomN1qlRepositoryQueryExecutor {
         Query query;
         ExecutableFindByQueryOperation.ExecutableFindByQuery q;
         if (queryMethod.hasN1qlAnnotation()) {
-            query = new StringN1qlQueryCreator(accessor, queryMethod, operations.getConverter(), operations.getBucketName(), QueryMethodEvaluationContextProvider.DEFAULT, namedQueries).createQuery();
+            query =
+                new StringN1qlQueryCreator(
+                    accessor,
+                    queryMethod,
+                    operations.getConverter(),
+                    operations.getBucketName(),
+                    QueryMethodEvaluationContextProvider.DEFAULT,
+                    namedQueries
+                )
+                    .createQuery();
         } else {
             final PartTree tree = new PartTree(queryMethod.getName(), domainClass);
             query = new CustomN1qlQueryCreator(operations, tree, accessor, queryMethod, operations.getConverter()).createQuery();
         }
-        q = (ExecutableFindByQueryOperation.ExecutableFindByQuery) operations.findByQuery(domainClass)
-            .consistentWith(buildQueryScanConsistency()).matching(query);
+        q =
+            (ExecutableFindByQueryOperation.ExecutableFindByQuery) operations
+                .findByQuery(domainClass)
+                .consistentWith(buildQueryScanConsistency())
+                .matching(query);
         if (queryMethod.isCountQuery()) {
             return q.count();
         } else if (queryMethod.isCollectionQuery()) {
@@ -57,7 +73,6 @@ public class CustomN1qlRepositoryQueryExecutor {
         } else {
             return q.oneValue();
         }
-
     }
 
     private QueryScanConsistency buildQueryScanConsistency() {

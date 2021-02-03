@@ -1,10 +1,10 @@
-package tech.jhipster.sample.config.springdata;
+package tech.jhipster.sample.config.sdc;
 
 import org.springframework.data.couchbase.core.CouchbaseOperations;
 import org.springframework.data.couchbase.repository.query.CouchbaseQueryMethod;
 import org.springframework.data.couchbase.repository.query.CouchbaseRepositoryQuery;
 import org.springframework.data.repository.core.NamedQueries;
-import tech.jhipster.sample.config.springdata.n1ql.CustomN1qlRepositoryQueryExecutor;
+import tech.jhipster.sample.config.sdc.n1ql.CustomN1qlRepositoryQueryExecutor;
 
 /**
  * Created by mmonti on 2/1/21.
